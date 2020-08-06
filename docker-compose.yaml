@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  ambianic-edge:
+    container_name: ambianic-edge
+    restart: unless-stopped
+    privileged: true
+    image: ambianic/ambianic-edge:latest
+    network_mode: "host"
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev/video0:/dev/video0
+      - /dev/video1:/dev/video1
+      - /dev/video10:/dev/video10
+      - /dev/video11:/dev/video11
+      - /dev/video12:/dev/video12
+      - /dev/video13:/dev/video13
+      - /dev/video14:/dev/video14
+      - /dev/video15:/dev/video15
+      - /dev/video16:/dev/video16
+      # Ambianic Edge will look for its config.yaml file in the directory specified below
+      # It will also store logs and data files under the same directory
+      - /opt/ambianic-edge.prod:/workspace
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
+      interval: 300s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+  # use watchtower to automatically and gracefully update ambianic-edge docker images
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # with --cleanup watchtower will remove old unused docker images
+    command: --cleanup
