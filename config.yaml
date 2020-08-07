@@ -4,7 +4,7 @@
 version: '1.2.4'
 
 # path to the data directory
-data_dir: &data_dir ./data
+data_dir: ./data
 
 # Set logging level to one of DEBUG, INFO, WARNING, ERROR
 logging:
@@ -17,23 +17,18 @@ timeline:
 
 # Cameras and other input data sources
 sources:
-  # replace rtsp uri below with the one for your own camera
-  front_door_cam_feed: &src_recorded_cam_feed
-    uri: rtsp://admin:password@192.168.1.99/media/video1
+  picamera: 
+    uri: /dev/video10
     type: video
     live: true
-#  entry_area_cam_feed: &src_recorded_cam_feed
-#    uri: rtsp://admin:mike@192.168.1.99/media/video1
-#    type: video
-#    live: true
 
 ai_models:
-  image_detection: &tfm_image_detection
+  image_detection:
     model:
       tflite: /opt/ambianic-edge/ai_models/mobilenet_ssd_v2_coco_quant_postprocess.tflite
       edgetpu: /opt/ambianic-edge/ai_models/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite
     labels: /opt/ambianic-edge/ai_models/coco_labels.txt
-  face_detection: &tfm_face_detection
+  face_detection: 
     model:
       tflite: /opt/ambianic-edge/ai_models/mobilenet_ssd_v2_face_quant_postprocess.tflite
       edgetpu: /opt/ambianic-edge/ai_models/mobilenet_ssd_v2_face_quant_postprocess_edgetpu.tflite
@@ -45,35 +40,16 @@ ai_models:
 pipelines:
   # sequence of piped operations for use in daytime front door watch
    front_door_watch:
-     - source: *src_recorded_cam_feed
+     - source: picamera
      - detect_objects: # run ai inference on the input data
-        <<: *tfm_image_detection
+        ai_model: image_detection
         confidence_threshold: 0.6
      - save_detections: # save samples from the inference results
         positive_interval: 2 # how often (in seconds) to save samples with ANY results above the confidence threshold
         idle_interval: 6000 # how often (in seconds) to save samples with NO results above the confidence threshold
      - detect_faces: # run ai inference on the samples from the previous element output
-        <<: *tfm_face_detection
+        ai_model: face_detection
         confidence_threshold: 0.6
      - save_detections: # save samples from the inference results
         positive_interval: 2
         idle_interval: 600
-
-  # sequence of piped operations for use in daytime front door watch
-#  entry_area_watch:
-#    - source: *src_entry_area_cam
-#    - detect_objects: # run ai inference on the input data
-#        <<: *tfm_image_detection
-#        confidence_threshold: 0.8
-#    - save_detections: # save samples from the inference results
-#        output_directory: *ea_object_detect_dir
-#        positive_interval: 2 # how often (in seconds) to save samples with ANY results above the confidence threshold
-#        idle_interval: 6000 # how often (in seconds) to save samples with NO results above the confidence threshold
-#    - detect_faces: # run ai inference on the samples from the previous element output
-#        <<: *tfm_face_detection
-#        confidence_threshold: 0.8
-#    - save_detections: # save samples from the inference results
-#        output_directory: *ea_face_detect_dir
-#        positive_interval: 2
-#        idle_interval: 600
-
