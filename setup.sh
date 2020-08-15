@@ -30,6 +30,18 @@ if ! type "docker-compose" > /dev/null; then
   fi
 fi
 
+
+if grep -q Raspbian /etc/issue.net; then
+  # on PI
+  if grep -xq "gpu_mem\=.*" /boot/config.txt
+  then
+    echo "gpu_mem already set"
+  else
+    echo "gpu_mem=256" | sudo tee -a /boot/config.txt
+  fi
+fi
+
+
 DEST_DIR=/opt/ambianic-edge.prod
 
 # create the workdir
