@@ -1,5 +1,28 @@
 version: "3.7"
 services:
+
+  ambianic-wifi:
+    container_name: ambianic-wifi
+    restart: unless-stopped
+    privileged: true
+    image: opny/pi-wifi:latest
+    network_mode: "host"
+    environment:
+      service_name: Ambianic
+    volumes:
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+    restart: on-failure
+    # healthcheck:
+    #   test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
+    #   interval: 300s
+    #   timeout: 3s
+    #   retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   ambianic-edge:
     container_name: ambianic-edge
     restart: unless-stopped
