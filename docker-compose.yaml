@@ -7,10 +7,14 @@ services:
     privileged: true
     image: opny/pi-wifi:latest
     network_mode: "host"
+    privileged: true
     environment:
+      LOG_LEVEL: trace
       SERVICE_NAME: Ambianic
     volumes:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+      - /sys/class/bluetooth:/sys/class/bluetooth:/sys/class/bluetooth:/sys/class/bluetooth
+      - /var/lib/bluetooth:/var/lib/bluetooth
     restart: on-failure
     # healthcheck:
     #   test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
