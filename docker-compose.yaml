@@ -13,7 +13,7 @@ services:
       SERVICE_NAME: Ambianic
     volumes:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
-      - /sys/class/bluetooth:/sys/class/bluetooth:/sys/class/bluetooth:/sys/class/bluetooth
+      - /sys/class/bluetooth:/sys/class/bluetooth
       - /var/lib/bluetooth:/var/lib/bluetooth
     restart: on-failure
     # healthcheck:
