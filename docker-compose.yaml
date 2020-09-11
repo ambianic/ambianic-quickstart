@@ -11,6 +11,8 @@ services:
     environment:
       LOG_LEVEL: trace
       SERVICE_NAME: Ambianic
+    ports: 
+      - 9099:9099
     volumes:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
       - /sys/class/bluetooth:/sys/class/bluetooth
