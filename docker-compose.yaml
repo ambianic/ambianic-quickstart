@@ -6,10 +6,12 @@ services:
     privileged: true
     image: ambianic/ambianic-edge:latest
     network_mode: "host"
+    privileged: true
     devices:
       - "/dev/video0:/dev/video0"
     volumes:
       - /dev/bus/usb:/dev/bus/usb
+      - /opt/vc:/opt/vc
       # Ambianic Edge will look for its config.yaml file in the directory specified below
       # It will also store logs and data files under the same directory
       - /opt/ambianic-edge.prod:/workspace
