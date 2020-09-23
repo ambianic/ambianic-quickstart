@@ -18,7 +18,7 @@ timeline:
 # Cameras and other input data sources
 sources:
   picamera: 
-    uri: /dev/video10
+    uri: picamera
     type: video
     live: true
 
