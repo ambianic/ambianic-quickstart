@@ -15,6 +15,7 @@ services:
       # Ambianic Edge will look for its config.yaml file in the directory specified below
       # It will also store logs and data files under the same directory
       - /opt/ambianic-edge.prod:/workspace
+      - ./config.yaml:/workspace/config.yaml
     restart: on-failure
     healthcheck:
       test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
