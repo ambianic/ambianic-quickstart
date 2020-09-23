@@ -17,7 +17,9 @@ services:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
       - /sys/class/bluetooth:/sys/class/bluetooth
       - /var/lib/bluetooth:/var/lib/bluetooth
+      - /opt/vc:/opt/vc      
     restart: on-failure
+    privileged: true
     # healthcheck:
     #   test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
     #   interval: 300s
