@@ -17,6 +17,8 @@ services:
       - /opt/ambianic-edge.prod:/workspace
       - ./config.yaml:/workspace/config.yaml
     restart: on-failure
+    environments:
+      - LD_LIBRARY_PATH=/opt/vc/lib
     healthcheck:
       test: ["CMD", "curl", "-sI", "http://127.0.0.1:8778/"]
       interval: 300s
