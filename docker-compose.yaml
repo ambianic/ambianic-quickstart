@@ -14,7 +14,7 @@ services:
       - /opt/vc:/opt/vc
       # Ambianic Edge will look for its config.yaml file in the directory specified below
       # It will also store logs and data files under the same directory
-      - /opt/ambianic-edge.prod:/workspace
+      - ./data:/workspace
       - ./config.yaml:/workspace/config.yaml
     restart: on-failure
     environment:
@@ -31,6 +31,7 @@ services:
         max-file: "10"
   # use watchtower to automatically and gracefully update ambianic-edge docker images
   watchtower:
+    container_name: watchtower
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
