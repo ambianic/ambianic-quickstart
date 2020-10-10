@@ -28,6 +28,8 @@ then
         sh $INSTALLDIR/scripts/updates.sh
         echo "Restarting Ambianic.ai"
         sudo ambianic restart
+        sleep 3
+        ambianic ui
         exit 0
     fi
 fi
@@ -39,5 +41,7 @@ sudo mv $TMPDIR/ambianic $INSTALLDIR
 sh $INSTALLDIR/scripts/setup.sh
 echo "Starting Ambianic.ai"
 sudo ambianic start
+sleep 3
+ambianic ui
 exit 0
 

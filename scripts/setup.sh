@@ -27,9 +27,3 @@ docker stop ambianic-edge ambianic-watchtower || true && docker rm -f ambianic-e
 
 echo "${PREFIX}Updating.."
 sudo docker-compose pull
-sudo docker-compose up -d --remove-orphans
-sleep 2
-echo "${PREFIX}"
-echo "${PREFIX}Ambianic.ai Edge is starting, enjoy! "
-echo "${PREFIX}"
-sleep 2
