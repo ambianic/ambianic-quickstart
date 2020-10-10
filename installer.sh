@@ -1,6 +1,7 @@
 #!/bin/bash
 
 INSTALLDIR=/opt/ambianic
+BRANCH=master
 
 sudo true
 
@@ -19,19 +20,20 @@ then
     else
         echo "Updating ..."
         cd $INSTALLDIR
-        git pull
-        sh scripts/updates.sh
+        sudo git pull
+        sh $INSTALLDIR/scripts/setup.sh
+        sh $INSTALLDIR/scripts/updates.sh
         echo "Restarting Ambianic.ai"
-        ambianic restart
+        sudo ambianic restart
         exit 0
+    fi
 fi
 
 # clean install
 echo "Installing in $INSTALLDIR"
-sudo git clone https://github.com/ambianic/ambianic-quickstart.git $INSTALLDIR
-cd $INSTALLDIR
-
-sh scripts/setup.sh
-
+sudo git clone -b $BRANCH https://github.com/ambianic/ambianic-quickstart.git $INSTALLDIR
+sh $INSTALLDIR/scripts/setup.sh
 echo "Starting Ambianic.ai"
-ambianic start
+sudo ambianic start
+exit 0
+
