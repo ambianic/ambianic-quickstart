@@ -5,7 +5,9 @@ BRANCH=master
 
 sudo true
 
-sudo apt update -q && sudo apt install git -y
+if ! type "git" > /dev/null; then
+    sudo apt update -q && sudo apt install git -y
+fi
 
 echo "Installing Ambianic.ai in $INSTALLDIR"
 
