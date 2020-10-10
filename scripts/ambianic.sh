@@ -7,7 +7,7 @@ sudo true
 
 open_ui() {
     echo "Opening Ambianic.ai UI at $UI_URL"
-    if ! type "xdg-open" > /dev/null; then
+    if type "xdg-open" 2>&1 > /dev/null; then
         xdg-open $UI_URL
     else
        echo "xdg-open not available, please copy the link above to reach the UI."
