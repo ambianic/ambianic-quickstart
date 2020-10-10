@@ -18,7 +18,7 @@ then
 fi
 
 # Attempt to kill overlapping containers
-docker stop ambianic-edge ambianic-watchtower && docker rm -f ambianic-edge ambianic-watchtower || true
+docker stop ambianic-edge ambianic-watchtower || true && docker rm -f ambianic-edge ambianic-watchtower || true
 sudo docker-compose up -d --remove-orphans
 sleep 2
 echo "Ambianic.ai Edge is starting, enjoy! "
