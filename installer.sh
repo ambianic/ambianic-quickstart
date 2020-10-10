@@ -2,6 +2,7 @@
 
 INSTALLDIR=/opt/ambianic
 BRANCH=master
+TMPDIR=$(dirname $(mktemp tmp.XXXXXXXXXX -ut))
 
 sudo true
 
@@ -22,7 +23,7 @@ then
     else
         echo "Updating ..."
         cd $INSTALLDIR
-        sudo git pull
+        git pull origin $BRANCH
         sh $INSTALLDIR/scripts/setup.sh
         sh $INSTALLDIR/scripts/updates.sh
         echo "Restarting Ambianic.ai"
@@ -33,7 +34,8 @@ fi
 
 # clean install
 echo "Installing in $INSTALLDIR"
-sudo git clone -b $BRANCH https://github.com/ambianic/ambianic-quickstart.git $INSTALLDIR
+git clone -b $BRANCH https://github.com/ambianic/ambianic-quickstart.git $TMPDIR/ambianic
+sudo mv $TMPDIR/ambianic $INSTALLDIR
 sh $INSTALLDIR/scripts/setup.sh
 echo "Starting Ambianic.ai"
 sudo ambianic start
