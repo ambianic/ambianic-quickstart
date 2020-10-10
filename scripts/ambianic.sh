@@ -1,8 +1,18 @@
 #!/bin/bash
 INSTALLDIR=/opt/ambianic
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+UI_URL="https://ui.ambianic.ai/"
 
 sudo true
+
+open_ui() {
+    echo "Opening Ambianic.ai UI at $UI_URL"
+    if ! type "xdg-open" > /dev/null; then
+        xdg-open $UI_URL
+    else
+       echo "xdg-open not available, please copy the link above to reach the UI."
+    fi
+}
 
 logs() {
     cd $INSTALLDIR && sudo docker-compose logs -f --tail 100 ambianic-edge
@@ -47,10 +57,13 @@ case "$1" in
     'logs')
             logs
             ;;
+    'ui')
+            open_ui
+            ;;
     *)
             CMD=$(dirname $0)
             echo
-            echo "Usage: $CMD { start | stop | restart | status | logs }"
+            echo "Usage: $CMD { start | stop | restart | status | logs | ui }"
             echo
             exit 1
             ;;
