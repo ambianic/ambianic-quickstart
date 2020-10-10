@@ -5,6 +5,11 @@ UI_URL="https://ui.ambianic.ai/"
 
 sudo true
 
+upgrade() {
+    echo "Upgrading ambianic setup.."
+    cd $INSTALLDIR && git pull origin $BRANCH && sh installer.sh
+}
+
 open_ui() {
     echo "Opening Ambianic.ai UI at $UI_URL"
     if type "xdg-open" 2>&1 > /dev/null; then
@@ -38,6 +43,9 @@ case "$1" in
     'start')
             start
             ;;
+    'upgrade')
+            upgrade
+            ;;
     'stop')
             stop
             ;;
@@ -62,7 +70,7 @@ case "$1" in
     *)
             CMD=$(dirname $0)
             echo
-            echo "Usage: $CMD { start | stop | restart | status | logs | ui }"
+            echo "Usage: $CMD { start | stop | restart | status | logs | ui | upgrade }"
             echo
             exit 1
             ;;
