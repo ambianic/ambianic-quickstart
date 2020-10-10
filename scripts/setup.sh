@@ -28,7 +28,7 @@ then
   sudo mkdir -p $CONFIGDIR
   sudo touch $CONFIGDIR/secrets.yaml
   sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
-  sudo cp $INSTALLDIR/.env.default $INSTALLDIR/.env
+  echo "SECRETS=/etc/ambianic/secrets.yaml\nCONFIG=/etc/ambianic/config.yaml" | sudo tee $INSTALLDIR/.env
   echo "${PREFIX}Created default configurations in $CONFIGDIR"
 fi
 
