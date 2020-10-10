@@ -1,9 +1,8 @@
 #!/bin/bash
 INSTALLDIR=/opt/ambianic
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CFG_FILE=/boot/config.txt
 
 sudo true
-
 # Check if it is a PI or exit
 if ! grep -q Raspbian /etc/issue.net; then
   exit 0
@@ -11,8 +10,16 @@ fi
 
 echo "Preparing Raspberry PI"
 
-# TODO: check for GPIO, VIDEO and GPU allocation in /boot/config.txt
 
+# Enable camera: start_x=1
+echo "Enable picamera"
+sudo raspi-config nonint do_camera 1
+
+echo "Allocate GPU"
+# 3. Allocate GPU to camera: gpu_mem=256
+if ! grep -Fq "gpu_mem=" $CFG_FILE; then
+  echo "gpu_mem=256" | sudo tee -a $CFG_FILE
+fi
 
 # enable pi camera as /dev/video*
 if ! grep -Fxq "bcm2835-v4l2" /etc/modules
