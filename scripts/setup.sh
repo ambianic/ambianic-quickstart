@@ -2,8 +2,10 @@
 INSTALLDIR=/opt/ambianic
 SCRIPTS_DIR=$INSTALLDIR/scripts
 
+PREFIX="--\t"
+
 sudo true
-echo "Installing Ambianic.ai"
+echo "${PREFIX}Installing Ambianic.ai"
 
 # Install docker and compose if required
 bash $SCRIPTS_DIR/install-docker.sh
@@ -15,12 +17,19 @@ if [ ! -e /usr/bin/ambianic ]
 then
   chmod +x $SCRIPTS_DIR/ambianic.sh
   sudo ln -s $SCRIPTS_DIR/ambianic.sh /usr/bin/ambianic
+  echo "${PREFIX}Installed ambianic CLI"
 fi
 
+
 # Attempt to kill overlapping containers
+echo "${PREFIX}Removing legacy containers.."
 docker stop ambianic-edge ambianic-watchtower || true && docker rm -f ambianic-edge ambianic-watchtower || true
+
+echo "${PREFIX}Updating.."
 sudo docker-compose pull
 sudo docker-compose up -d --remove-orphans
 sleep 2
-echo "Ambianic.ai Edge is starting, enjoy! "
+echo "${PREFIX}"
+echo "${PREFIX}Ambianic.ai Edge is starting, enjoy! "
+echo "${PREFIX}"
 sleep 2
