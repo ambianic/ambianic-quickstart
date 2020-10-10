@@ -45,8 +45,7 @@ case "$1" in
             kill_cmd
             ;;
     'restart')
-            stop ; echo "Sleeping..."; sleep 1 ;
-            start
+            stop ; start
             ;;
     'status')
             status
