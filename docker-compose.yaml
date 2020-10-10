@@ -9,6 +9,9 @@ services:
     privileged: true
     devices:
       - "/dev/video0:/dev/video0"
+    env_file:
+      - .env
+      - .env.default
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - /opt/vc:/opt/vc
