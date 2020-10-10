@@ -13,8 +13,13 @@ wget -qO - https://raw.githubusercontent.com/ambianic/ambianic-quickstart/master
 The setup will install an `ambianic` CLI command to control the setup
 
 ```sh
-    Usage: ambianic { start | stop | restart | status | logs }
+    Usage: ambianic { start | stop | restart | status | logs | ui }
 ```
+
+- `start`, `stop`, `restart`: start/stop/restart the local `ambianic-edge` instance
+- `status`: shows the instance status
+- `logs`: logs on stdout the instance logs
+- `ui`: opens the Ambianic.ai UI
 
 ## Uninstall
 
