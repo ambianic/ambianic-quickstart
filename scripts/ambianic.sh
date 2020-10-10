@@ -45,8 +45,9 @@ case "$1" in
             logs
             ;;
     *)
+            CMD=$(dirname $0)
             echo
-            echo "Usage: $0 { start | stop | restart | status | logs }"
+            echo "Usage: $CMD { start | stop | restart | status | logs }"
             echo
             exit 1
             ;;
