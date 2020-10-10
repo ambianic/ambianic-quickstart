@@ -20,6 +20,7 @@ The setup will install an `ambianic` CLI command to control the setup
 - `status`: shows the instance status
 - `logs`: logs on stdout the instance logs
 - `ui`: opens the Ambianic.ai UI
+- `upgrade`: Run the installer and upgrade the local setup
 
 ## Uninstall
 
