@@ -24,6 +24,8 @@ services:
       interval: 300s
       timeout: 3s
       retries: 10
+    labels: 
+      com.centurylinklabs.watchtower.enable: true
     logging:
       driver: "json-file"
       options:
@@ -31,11 +33,11 @@ services:
         max-file: "10"
   # use watchtower to automatically and gracefully update ambianic-edge docker images
   watchtower:
-    container_name: watchtower
+    container_name: ambianic-watchtower
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     # with --cleanup watchtower will remove old unused docker images
-    command: --cleanup
+    command: --cleanup  --label-enable
 
 
