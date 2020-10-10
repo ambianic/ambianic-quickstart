@@ -41,6 +41,9 @@ case "$1" in
     'status')
             status
             ;;
+    'ps')
+            status
+            ;;
     'logs')
             logs
             ;;
