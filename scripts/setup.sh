@@ -34,7 +34,8 @@ fi
 
 # Attempt to kill overlapping containers
 echo "${PREFIX}Removing legacy containers.."
-docker stop ambianic-edge ambianic-watchtower || true && docker rm -f ambianic-edge ambianic-watchtower || true
+sudo docker stop ambianic-edge ambianic-watchtower || true
+sudo docker rm -f ambianic-edge ambianic-watchtower || true
 
 echo "${PREFIX}Updating.."
 sudo docker-compose pull
