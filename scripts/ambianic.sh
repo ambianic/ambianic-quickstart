@@ -53,7 +53,9 @@ case "$1" in
             kill_cmd
             ;;
     'restart')
-            stop ; start
+            stop
+            sudo rm -f /opt/ambianic/data/data/.__timeline-event-log.yaml.lock
+            start
             ;;
     'status')
             status
