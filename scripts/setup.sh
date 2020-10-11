@@ -37,5 +37,5 @@ echo "${PREFIX}Removing legacy containers.."
 sudo docker stop ambianic-edge ambianic-watchtower || true
 sudo docker rm -f ambianic-edge ambianic-watchtower || true
 
-echo "${PREFIX}Updating.."
-sudo docker-compose pull
+echo "${PREFIX}Updating images.."
+cd $INSTALLDIR && sudo docker-compose pull
