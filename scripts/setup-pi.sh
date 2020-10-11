@@ -31,5 +31,5 @@ fi
 sudo modprobe bcm2835-v4l2
 
 
-echo "Raspberry PI setup completed!"
+echo "Raspberry PI setup completed"
 exit 0

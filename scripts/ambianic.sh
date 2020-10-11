@@ -68,7 +68,7 @@ case "$1" in
             open_ui
             ;;
     *)
-            CMD=$(dirname $0)
+            CMD=$(basename $0)
             echo
             echo "Usage: $CMD { start | stop | restart | status | logs | ui | upgrade }"
             echo
