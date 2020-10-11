@@ -14,6 +14,7 @@ echo "Preparing Raspberry PI"
 # Enable camera: start_x=1
 echo "Enable picamera"
 sudo raspi-config nonint do_camera 1
+sudo sed -i 's/start_x=0/start_x=1/' /boot/config.txt
 
 echo "Allocate GPU"
 # 3. Allocate GPU to camera: gpu_mem=256
