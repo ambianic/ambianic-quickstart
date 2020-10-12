@@ -25,4 +25,4 @@ The setup will install an `ambianic` CLI command to control the setup
 ## Uninstall
 
 ```sh
-cd /opt/ambianic && ./script/uninstall.sh
+cd /opt/ambianic && ./scripts/uninstall.sh
