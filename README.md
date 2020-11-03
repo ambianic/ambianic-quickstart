@@ -13,7 +13,7 @@ wget -qO - https://raw.githubusercontent.com/ambianic/ambianic-quickstart/master
 The setup will install an `ambianic` CLI command to control the setup
 
 ```sh
-    Usage: ambianic { start | stop | restart | status | logs | ui }
+    Usage: ambianic { start | stop | restart | status | logs | ui | upgrade }
 ```
 
 - `start`, `stop`, `restart`: start/stop/restart the local `ambianic-edge` instance
@@ -25,4 +25,4 @@ The setup will install an `ambianic` CLI command to control the setup
 ## Uninstall
 
 ```sh
-cd /opt/ambianic && ./script/uninstall.sh
+cd /opt/ambianic && ./scripts/uninstall.sh
