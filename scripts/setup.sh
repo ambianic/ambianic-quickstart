@@ -26,11 +26,21 @@ fi
 if [ ! -d "$CONFIGDIR" ]
 then
   sudo mkdir -p $CONFIGDIR
-  sudo touch $CONFIGDIR/secrets.yaml
-  sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
-  echo "SECRETS=/etc/ambianic/secrets.yaml\nCONFIG=/etc/ambianic/config.yaml" | sudo tee $INSTALLDIR/.env
-  echo "${PREFIX}Created default configurations in $CONFIGDIR"
+  echo "${PREFIX}Creating default configurations in $CONFIGDIR"  
 fi
+
+if [ ! -f "$CONFIGDIR/secrets.yaml" ]
+  sudo touch $CONFIGDIR/secrets.yaml
+fi
+if [ ! -f "$CONFIGDIR/peerjs.json" ]
+  echo "{}" > sudo tee $CONFIGDIR/peerjs.json
+fi
+if [ ! -f "$CONFIGDIR/peerjs.json" ]
+  sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
+fi
+
+echo "PEERJS_CONFIG=$CONFIGDIR/peerjs.json\nSECRETS=$CONFIGDIR/secrets.yaml\nCONFIG=$CONFIGDIR/config.yaml" | sudo tee $INSTALLDIR/.env
+
 
 # Attempt to kill overlapping containers
 echo "${PREFIX}Removing legacy containers.."
