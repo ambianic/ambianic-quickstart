@@ -35,7 +35,7 @@ then
 fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
 then
-  echo "{}" > sudo tee $CONFIGDIR/peerjs.json
+  echo "{}" | sudo tee $CONFIGDIR/peerjs.json
 fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
 then
