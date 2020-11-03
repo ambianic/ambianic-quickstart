@@ -30,12 +30,15 @@ then
 fi
 
 if [ ! -f "$CONFIGDIR/secrets.yaml" ]
+then
   sudo touch $CONFIGDIR/secrets.yaml
 fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
+then
   echo "{}" > sudo tee $CONFIGDIR/peerjs.json
 fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
+then
   sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
 fi
 
