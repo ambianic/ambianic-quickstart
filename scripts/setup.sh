@@ -22,17 +22,16 @@ if [ ! -e /usr/bin/ambianic ]
 then
   chmod +x $SCRIPTS_DIR/ambianic.sh
   sudo ln -s $SCRIPTS_DIR/ambianic.sh /usr/bin/ambianic
-
-  # add autocompletion
-  if [ -d /etc/bash_completion.d/ ]
-  then
-    if [ ! -f /etc/bash_completion.d/ambianic ]
-    then
-      sudo ln -s $SCRIPTS_DIR/autocomplete.sh /etc/bash_completion.d/ambianic
-    fi
-  fi
-
   echo "${PREFIX}Installed ambianic CLI"
+fi
+
+# add autocompletion
+if [ -d /etc/bash_completion.d/ ]
+then
+  if [ ! -f /etc/bash_completion.d/ambianic ]
+  then
+    sudo ln -s $SCRIPTS_DIR/autocomplete.sh /etc/bash_completion.d/ambianic
+  fi
 fi
 
 if [ ! -d "$CONFIGDIR" ]
