@@ -10,6 +10,7 @@ purge() {
     sudo rm -f /usr/bin/ambianic
     sudo rm -rf /etc/ambianic
     sudo rm -rf /opt/ambianic
+    sudo rm -rf /etc/bash_completion.d/ambianic
     echo "\nAmbianic.ai removed"
     exit 0
 }
