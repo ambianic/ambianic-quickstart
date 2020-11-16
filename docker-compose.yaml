@@ -20,7 +20,7 @@ services:
       - ./data:/workspace
       - ${PEERJS_CONFIG}:/workspace/.peerjsrc
       - ${CONFIG}:/workspace/config.yaml
-      - ${SECRETS}:/workspace/secrets.yaml
+      # - ${SECRETS}:/workspace/secrets.yaml
     restart: on-failure
     environment:
       - LD_LIBRARY_PATH=/opt/vc/lib

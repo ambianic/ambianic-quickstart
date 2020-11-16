@@ -29,10 +29,6 @@ then
   echo "${PREFIX}Creating default configurations in $CONFIGDIR"  
 fi
 
-if [ ! -f "$CONFIGDIR/secrets.yaml" ]
-then
-  sudo touch $CONFIGDIR/secrets.yaml
-fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
 then
   echo "{}" | sudo tee $CONFIGDIR/peerjs.json
@@ -42,7 +38,7 @@ then
   sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
 fi
 
-echo "PEERJS_CONFIG=$CONFIGDIR/peerjs.json\nSECRETS=$CONFIGDIR/secrets.yaml\nCONFIG=$CONFIGDIR/config.yaml" | sudo tee $INSTALLDIR/.env
+echo "PEERJS_CONFIG=$CONFIGDIR/peerjs.json\nCONFIG=$CONFIGDIR/config.yaml" | sudo tee $INSTALLDIR/.env
 
 
 # Attempt to kill overlapping containers
