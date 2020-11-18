@@ -13,7 +13,12 @@ fi
 if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
   wget -qO- https://get.docker.com/ | sh
-  sudo usermod -aG docker ${USER}
+  # Eenable docker access for FIRST_USER_NAME if set,
+  # otherwise grant docker access for USER.
+  # Using bash parameter expansion: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Parameter-Expansion
+  DOCKER_USER=${FIRST_USER_NAME:-$USER}
+  echo "Granting docker access to user: ${DOCKER_USER}"
+  sudo usermod -aG docker ${DOCKER_USER}
 fi
 
 if ! command -v "docker-compose" &> /dev/null; then
