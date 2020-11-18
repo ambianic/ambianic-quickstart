@@ -67,4 +67,15 @@ install -m 644 $INSTALLDIR/docker-compose-app.service "/etc/systemd/system/docke
 # enable docker compose on boot
 sudo systemctl enable docker-compose-app
 
-sudo docker-compose pull ||  echo "docker-compose is unable to pull the latest ambianic docker images. Check the log for errors, fix and retry."
+sudo docker-compose pull 
+if [ $? -eq 0 ]; then
+  echo "Ambianic docker image pulled. This crontab job is no longer needed.
+  echo "Removing from crontab schedule."
+  me=`basename "$0"`
+  crontab -l | grep -v '$me'  | crontab -
+else
+  echo "docker-compose is unable to pull the latest ambianic docker images at this time. Check the log for errors."
+  echo "Scheduling cronjob to retry pulling docker images every 5 minutes until success."
+  (crontab -l ; echo "*/5 * * * * bash $INSTALLDIR/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log") | crontab -
+fi
+
