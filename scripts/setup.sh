@@ -67,7 +67,4 @@ install -m 644 $INSTALLDIR/docker-compose-app.service "/etc/systemd/system/docke
 # enable docker compose on boot
 sudo systemctl enable docker-compose-app
 
-if [ ! sudo docker-compose pull ]
-then
-  echo "docker-compose is unable to pull the latest ambianic docker images. Check the log for errors, fix and retry."
-fi
+sudo docker-compose pull ||  echo "docker-compose is unable to pull the latest ambianic docker images. Check the log for errors, fix and retry."
