@@ -61,6 +61,12 @@ sudo docker rm -f ambianic-edge ambianic-watchtower || true
 echo "${PREFIX}Updating images.."
 cd $INSTALLDIR 
 
+# Setup docker-compose as a system boot service
+install -m 644 $INSTALLDIR/docker-compose-app.service "/etc/systemd/system/docker-compose-app.service"
+
+# enable docker compose on boot
+systemctl enable docker-compose-app
+
 if [ ! sudo docker-compose pull ]
 then
   echo "docker-compose is unable to pull the latest ambianic docker images. Check the log for errors, fix and retry."
