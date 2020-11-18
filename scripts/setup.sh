@@ -69,7 +69,7 @@ sudo systemctl enable docker-compose-app
 
 sudo docker-compose pull 
 if [ $? -eq 0 ]; then
-  echo "Ambianic docker image pulled. This crontab job is no longer needed.
+  echo "Ambianic docker image pulled. This crontab job is no longer needed."
   echo "Removing from crontab schedule."
   me=`basename "$0"`
   crontab -l | grep -v '$me'  | crontab -
