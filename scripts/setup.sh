@@ -65,7 +65,7 @@ cd $INSTALLDIR
 install -m 644 $INSTALLDIR/docker-compose-app.service "/etc/systemd/system/docker-compose-app.service"
 
 # enable docker compose on boot
-systemctl enable docker-compose-app
+sudo systemctl enable docker-compose-app
 
 if [ ! sudo docker-compose pull ]
 then
