@@ -59,4 +59,9 @@ sudo docker stop ambianic-edge ambianic-watchtower || true
 sudo docker rm -f ambianic-edge ambianic-watchtower || true
 
 echo "${PREFIX}Updating images.."
-cd $INSTALLDIR && sudo docker-compose pull
+cd $INSTALLDIR 
+
+if [ ! sudo docker-compose pull ]
+then
+  echo "docker-compose is unable to pull the latest ambianic docker images. Check the log for errors, fix and retry."
+fi
