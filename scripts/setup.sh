@@ -59,4 +59,25 @@ sudo docker stop ambianic-edge ambianic-watchtower || true
 sudo docker rm -f ambianic-edge ambianic-watchtower || true
 
 echo "${PREFIX}Updating images.."
-cd $INSTALLDIR && sudo docker-compose pull
+cd $INSTALLDIR 
+
+# Setup docker-compose as a system boot service
+install -m 644 $INSTALLDIR/docker-compose-app.service "/etc/systemd/system/docker-compose-app.service"
+
+# enable docker compose on boot
+sudo systemctl enable docker-compose-app
+
+sudo docker-compose pull 
+if [ $? -eq 0 ]; then
+  echo "Ambianic docker image pulled. This crontab job is no longer needed."
+  echo "Removing from crontab schedule."
+  me=`basename "$0"`
+  crontab -l | grep -v '$me'  | crontab -
+else
+  echo "docker-compose is unable to pull the latest ambianic docker images at this time. Check the log for errors."
+  echo "Scheduling cronjob to retry pulling docker images until success."
+  # ensure the crontab script is executable
+  chmod +x $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh
+  (crontab -l ; echo "*/1 * * * * bash $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log 2>&1") | crontab -
+fi
+
