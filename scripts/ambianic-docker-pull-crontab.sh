@@ -19,7 +19,10 @@ if [ $? -eq 0 ]; then
       echo "Ambianic docker image pulled. This crontab job is no longer needed."
       echo "Removing from crontab schedule."
       me=`basename "$0"`
-      crontab -l | grep -v '$me'  | crontab -
+      echo "my file name is=$me"
+      crontab -l | grep -v "$me"  | crontab -
+      echo "updated crontab list:"
+      crontab -l    
     else
       echo "Ambianic docker image has not been pulled yet."
       echo "Restarting docker-compose to initiate pull."
