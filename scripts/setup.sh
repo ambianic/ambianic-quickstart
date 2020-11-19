@@ -76,6 +76,8 @@ if [ $? -eq 0 ]; then
 else
   echo "docker-compose is unable to pull the latest ambianic docker images at this time. Check the log for errors."
   echo "Scheduling cronjob to retry pulling docker images every 5 minutes until success."
-  (crontab -l ; echo "*/5 * * * * bash $INSTALLDIR/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log") | crontab -
+  # ensure the crontab script is executable
+  chmod +x $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh
+  (crontab -l ; echo "*/5 * * * * bash $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log") | crontab -
 fi
 
