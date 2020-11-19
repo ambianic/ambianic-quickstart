@@ -78,6 +78,6 @@ else
   echo "Scheduling cronjob to retry pulling docker images every 5 minutes until success."
   # ensure the crontab script is executable
   chmod +x $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh
-  (crontab -l ; echo "*/5 * * * * bash $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log") | crontab -
+  (crontab -l ; echo "*/5 * * * * bash $INSTALLDIR/scripts/ambianic-docker-pull-crontab.sh >> $INSTALLDIR/ambianic-docker-pull-crontab.log 2>&1") | crontab -
 fi
 
