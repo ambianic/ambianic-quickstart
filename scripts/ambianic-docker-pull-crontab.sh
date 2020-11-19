@@ -16,7 +16,7 @@ if [ $? -eq 0 ]; then
     # check if the ambianic container is already pulled
     sudo docker ps --filter "name=ambianic-edge" | grep ambianic
     if [ $? -eq 0 ]; then
-      echo "Ambianic docker image pulled. This crontab job is no longer needed.
+      echo "Ambianic docker image pulled. This crontab job is no longer needed."
       echo "Removing from crontab schedule."
       me=`basename "$0"`
       crontab -l | grep -v '$me'  | crontab -
