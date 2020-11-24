@@ -9,6 +9,7 @@ services:
     privileged: true
     devices:
       - "/dev/video0:/dev/video0"
+      - "/dev/vchiq:/dev/vchiq"
     env_file:
       - .env.default
       - .env
@@ -18,9 +19,6 @@ services:
       # Ambianic Edge will look for its config.yaml file in the directory specified below
       # It will also store logs and data files under the same directory
       - ./data:/workspace
-      - ${PEERJS_CONFIG}:/workspace/.peerjsrc
-      - ${CONFIG}:/workspace/config.yaml
-      # - ${SECRETS}:/workspace/secrets.yaml
     restart: on-failure
     environment:
       - LD_LIBRARY_PATH=/opt/vc/lib
