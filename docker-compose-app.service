@@ -3,13 +3,13 @@
 [Unit]
 Description=Docker Compose Application Service
 Requires=docker.service
-After=docker.service
+After=docker.service wifi-connect.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/opt/ambianic
-ExecStart=/usr/local/bin/docker-compose up -d
+ExecStart=./start-docker-compose.sh
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0
 
