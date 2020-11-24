@@ -5,10 +5,10 @@
 # If pull fails due to internet connection or other reasons, the script will keep retrying until success
 
 echo "Initiating docker image pull..."
-until /usr/local/bin/docker-compose pull; 
+until /usr/local/bin/docker-compose pull
 do 
   echo "docker image pull failed. Will retry in a minute."
-  sleep 60; 
+  sleep 60
 done
 
 echo "Docker image pull finished. Starting docker containers..."
