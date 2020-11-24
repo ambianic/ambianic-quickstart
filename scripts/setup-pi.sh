@@ -10,6 +10,9 @@ fi
 
 echo "Preparing Raspberry PI"
 
+# Ensure picam libs are installed
+sudo apt-get update
+sudo apt-get install python-picamera python3-picamera 
 
 # Enable camera: start_x=1
 echo "Enable picamera"
