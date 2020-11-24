@@ -18,7 +18,7 @@ services:
       - /opt/vc:/opt/vc
       # Ambianic Edge will look for its config.yaml file in the directory specified below
       # It will also store logs and data files under the same directory
-      - ./data:/workspace
+      - /opt/ambianic/workspace:/workspace
     restart: on-failure
     environment:
       - LD_LIBRARY_PATH=/opt/vc/lib
