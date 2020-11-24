@@ -44,10 +44,12 @@ fi
 if [ ! -f "$CONFIGDIR/peerjs.json" ]
 then
   echo "{}" | sudo tee $CONFIGDIR/peerjs.json
+  chmod 644 $CONFIGDIR/peerjs.json
 fi
-if [ ! -f "$CONFIGDIR/peerjs.json" ]
+if [ ! -f "$CONFIGDIR/config.yaml" ]
 then
   sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
+  chmod 644 $CONFIGDIR/peerjs.json
 fi
 
 echo "PEERJS_CONFIG=$CONFIGDIR/peerjs.json\nCONFIG=$CONFIGDIR/config.yaml" | sudo tee $INSTALLDIR/.env
