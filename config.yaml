@@ -42,8 +42,9 @@ ai_models:
 # A named pipeline defines an ordered sequence of operations
 # such as reading from a data source, AI model inference, saving samples and others.
 pipelines:
-  # sequence of piped operations watching for incidents
-   room_watch:
+  # Sequence of piped operations watching for incidents.
+  # Pipeline names could be for example front_door_watch or entry_room_watch.
+   area_watch:
      - source: picamera
      - detect_objects: # run ai inference on the input data
         ai_model: image_detection
