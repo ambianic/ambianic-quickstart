@@ -9,7 +9,7 @@ After=docker.service wifi-connect.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/opt/ambianic
-ExecStart=./start-docker-compose.sh
+ExecStart=./scripts/start-docker-compose.sh
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0
 
