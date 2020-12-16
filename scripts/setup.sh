@@ -1,6 +1,7 @@
 #!/bin/bash
 INSTALLDIR=/opt/ambianic
 CONFIGDIR=/etc/ambianic
+WORKSPACE=$INSTALLDIR/workspace
 SCRIPTS_DIR=$INSTALLDIR/scripts
 
 PREFIX="--\t"
@@ -35,21 +36,33 @@ then
   fi
 fi
 
+if [ ! -d "$WORKSPACE" ]
+then
+  sudo mkdir -p $WORKSPACE
+  echo "${PREFIX}Creating workspace for ambianic docker image: $WORKSPACE"  
+fi
+
 if [ ! -d "$CONFIGDIR" ]
 then
   sudo mkdir -p $CONFIGDIR
   echo "${PREFIX}Creating default configurations in $CONFIGDIR"  
 fi
 
-if [ ! -f "$CONFIGDIR/peerjs.json" ]
+if [ ! -f "$WORKSPACE/peerjs.json" ]
 then
-  echo "{}" | sudo tee $CONFIGDIR/peerjs.json
-  chmod 644 $CONFIGDIR/peerjs.json
+  # creating config file in workspace dir first due to issues with docker file volume mapping
+  echo "{}" | sudo tee $WORKSPACE/peerjs.json
+  chmod 644 $WORKSPACE/peerjs.json
+  # linking config file in system conventional path location
+  ln -s $WORKSPACE/peerjs.json $CONFIGDIR/peerjs.json
 fi
-if [ ! -f "$CONFIGDIR/config.yaml" ]
+if [ ! -f "$WORKSPACE/config.yaml" ]
 then
-  sudo cp $INSTALLDIR/config.yaml $CONFIGDIR/config.yaml
-  chmod 644 $CONFIGDIR/peerjs.json
+  # creating config file in workspace dir first due to issues with docker file volume mapping
+  sudo cp $INSTALLDIR/config.yaml $WORKSPACE/config.yaml
+  chmod 644 $WORKSPACE/config.yaml
+  # linking config file in system conventional path location
+  ln -s $WORKSPACE/config.yaml $CONFIGDIR/config.yaml
 fi
 
 echo "PEERJS_CONFIG=$CONFIGDIR/peerjs.json\nCONFIG=$CONFIGDIR/config.yaml" | sudo tee $INSTALLDIR/.env

@@ -11,6 +11,10 @@ do
   sleep 60
 done
 
+echo "Cleaning up artifacts left over from an unexpected power outage or a crash..."
+# clean up leftover lock artifacts in case of power outage or other accidental crash
+sudo rm -f /opt/ambianic/data/data/.__timeline-event-log.yaml.lock
+
 echo "Docker image pull finished. Starting docker containers..."
 /usr/local/bin/docker-compose up -d
 
