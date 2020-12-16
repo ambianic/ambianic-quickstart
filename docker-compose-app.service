@@ -3,7 +3,7 @@
 [Unit]
 Description=Docker Compose Application Service
 Requires=docker.service
-After=docker.service wifi-connect.service
+After=docker.service
 
 [Service]
 Type=oneshot
