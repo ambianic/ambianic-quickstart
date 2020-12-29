@@ -59,7 +59,7 @@ fi
 if [ ! -f "$WORKSPACE/config.yaml" ]
 then
   # creating config file in workspace dir first due to issues with docker file volume mapping
-  sudo cp $INSTALLDIR/config.yaml $WORKSPACE/config.yaml
+  sudo mv $INSTALLDIR/config.yaml $WORKSPACE/config.yaml
   chmod 644 $WORKSPACE/config.yaml
   # linking config file in system conventional path location
   ln -s $WORKSPACE/config.yaml $CONFIGDIR/config.yaml
