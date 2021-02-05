@@ -73,7 +73,7 @@ pipelines:
         idle_interval: 6000 # how often (in seconds) to save samples with NO results above the confidence threshold
      - detect_falls: # look for falls
         ai_model: fall_detection
-        # confidence_threshold: 0.25
+        # confidence_threshold: 0.6
      - save_detections: # save samples from the inference results
         positive_interval: 10
         idle_interval: 600000
