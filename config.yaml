@@ -1,7 +1,7 @@
 ######################################
 #  Ambianic main configuration file  #
 ######################################
-version: '2020.12.11'
+version: '2021.02.05'
 
 # path to the data directory
 data_dir: ./data
@@ -60,22 +60,22 @@ pipelines:
    # Pipeline names could be descriptive, e.g. front_door_watch or entry_room_watch.
    area_watch:
      - source: picamera
-     - detect_objects: # run ai inference on the input data
-        ai_model: image_detection
-        confidence_threshold: 0.8
+#     - detect_objects: # run ai inference on the input data
+#        ai_model: image_detection
+#        confidence_threshold: 0.8
         # Watch for any of the labels listed below. The labels must be from the model trained label set.
         # If no labels are listed, then watch for all model trained labels.
-        label_filter:
-          - person
-          - car
-     - save_detections: # save samples from the inference results
-        positive_interval: 300 # how often (in seconds) to save samples with ANY results above the confidence threshold
-        idle_interval: 6000 # how often (in seconds) to save samples with NO results above the confidence threshold
+#        label_filter:
+#          - person
+#          - car
+#     - save_detections: # save samples from the inference results
+#        positive_interval: 300 # how often (in seconds) to save samples with ANY results above the confidence threshold
+#        idle_interval: 6000 # how often (in seconds) to save samples with NO results above the confidence threshold
      - detect_falls: # look for falls
         ai_model: fall_detection
         # confidence_threshold: 0.6
      - save_detections: # save samples from the inference results
-        positive_interval: 10
-        idle_interval: 600000
+        positive_interval: 10 # look for falls again 10 seconds after a previous fall detection
+        idle_interval: 21600 # save a background image every 6 hours (60 seconds * 60 minutes * 6)
 
 
