@@ -62,7 +62,7 @@ pipelines:
      - source: picamera
      - detect_objects: # run ai inference on the input data
         ai_model: image_detection
-        confidence_threshold: 0.6
+        confidence_threshold: 0.8
         # Watch for any of the labels listed below. The labels must be from the model trained label set.
         # If no labels are listed, then watch for all model trained labels.
         label_filter:
