@@ -10,6 +10,8 @@ data_dir: ./data
 logging:
   file: ./data/ambianic-log.txt
   level: INFO
+  # set a less noisy log level for the console output
+  # console_level: WARNING
 
 # Pipeline event timeline configuration
 timeline:
