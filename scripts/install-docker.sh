@@ -14,6 +14,17 @@ if ! command -v "wget" &> /dev/null; then
   sudo apt update -q && sudo apt install wget -y
 fi
 
+# Re-Install ARM/Raspberry Pi ca-certifcates
+# Which otherwise cause SSL Certificate Verification problems.
+if $(arch | grep -q arm)
+then
+  echo "Re-Installing ca-certifcates on Raspberry Pi / ARM CPU"
+  sudo dpkg --configure -a  
+  sudo apt-get remove -y ca-certificates
+  sudo apt-get update
+  sudo apt-get install -y ca-certificates
+fi
+
 if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
   wget -qO- https://get.docker.com/ | sh
