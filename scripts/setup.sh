@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# set bash flags: e - fail on unset vars, x - verbose, u - fail quick 
+set -exu
+
 INSTALLDIR=/opt/ambianic
 CONFIGDIR=/etc/ambianic
 WORKSPACE=$INSTALLDIR/workspace
