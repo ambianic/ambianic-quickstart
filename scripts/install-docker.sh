@@ -18,10 +18,14 @@ fi
 # Necessary because of this issue: https://github.com/ambianic/ambianic-rpi-image/runs/2000160870?check_suite_focus=true#step:9:4235 
 echo -n | openssl s_client -connect download.docker.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > docker.crt
 sudo cp docker.crt /usr/local/share/ca-certificates
+# download amazon root cert which docker.com uses
+curl https://www.amazontrust.com/repository/AmazonRootCA1.pem --output /usr/local/share/ca-certificates/amazon.crt
 sudo update-ca-certificates
 
 if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
+  # override pre_reqs variable to fix ca cert issue in docker install script
+  export pre_reqs="apt-transport-https curl"
   wget -qO- https://get.docker.com/ | sh
   # Eenable docker access for FIRST_USER_NAME if set,
   # otherwise grant docker access for USER.
