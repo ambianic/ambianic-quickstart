@@ -4,14 +4,14 @@
 set -exu
 
 INSTALLDIR=/opt/ambianic
+SCRIPTS_DIR=$INSTALLDIR/scripts
 COMPOSE_VERSION=1.26.0
 
 sudo true
 
 
-
-if ! command -v "wget" &> /dev/null; then
-  sudo apt update -q && sudo apt install wget -y
+if ! command -v "curl" &> /dev/null; then
+  sudo apt update -q && sudo apt install curl -y
 fi
 
 # Download and add Amazon.com CA certificate used by docker.com to local db
@@ -27,11 +27,7 @@ sudo update-ca-certificates
 
 if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
-  # override pre_reqs variable to fix ca cert issue in docker install script
-  export pre_reqs="apt-transport-https curl"
-  curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo get-docker.sh
-  # wget -qO- https://get.docker.com/ | sh
+  bash $SCRIPTS_DIR/get-docker-com.sh
   # Eenable docker access for FIRST_USER_NAME if set,
   # otherwise grant docker access for USER.
   # Using bash parameter expansion: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Parameter-Expansion
