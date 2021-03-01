@@ -14,16 +14,11 @@ if ! command -v "wget" &> /dev/null; then
   sudo apt update -q && sudo apt install wget -y
 fi
 
-# Re-Install ARM/Raspberry Pi ca-certifcates
-# Which otherwise cause SSL Certificate Verification problems.
-if $(arch | grep -q arm)
-then
-  echo "Re-Installing ca-certifcates on Raspberry Pi / ARM CPU"
-  sudo dpkg --configure -a  
-  sudo apt-get remove -y ca-certificates
-  sudo apt-get update
-  sudo apt-get install -y ca-certificates
-fi
+# Download and add docker CA certificate to local db
+# Necessary because of this issue: https://github.com/ambianic/ambianic-rpi-image/runs/2000160870?check_suite_focus=true#step:9:4235 
+echo -n | openssl s_client -connect download.docker.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > docker.crt
+sudo cp docker.crt /usr/local/share/ca-certificates
+sudo update-ca-certificates
 
 if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
