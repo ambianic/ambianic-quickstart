@@ -14,13 +14,15 @@ if ! command -v "wget" &> /dev/null; then
   sudo apt update -q && sudo apt install wget -y
 fi
 
-# Download and add docker CA certificate to local db
+# Download and add Amazon.com CA certificate used by docker.com to local db
 # Necessary because of this issue: https://github.com/ambianic/ambianic-rpi-image/runs/2000160870?check_suite_focus=true#step:9:4235 
 echo -n | openssl s_client -connect download.docker.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > docker.crt
 sudo cp docker.crt /usr/local/share/ca-certificates
 # download amazon root cert which docker.com uses
 sudo update-ca-certificates
-curl https://www.amazontrust.com/repository/AmazonRootCA1.pem --output /usr/local/share/ca-certificates/amazon.crt
+# use -k to tell curl not to verify cert. 
+# As of Feb 2021, there is a problem with the Amazon Root CA and Raspberry Pi OS ca-certificates libs
+curl -kfsSL https://www.amazontrust.com/repository/AmazonRootCA1.pem --output /usr/local/share/ca-certificates/amazon.crt
 sudo update-ca-certificates
 
 if ! command -v "docker" &> /dev/null; then
