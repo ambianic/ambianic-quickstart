@@ -19,6 +19,7 @@ fi
 echo -n | openssl s_client -connect download.docker.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > docker.crt
 sudo cp docker.crt /usr/local/share/ca-certificates
 # download amazon root cert which docker.com uses
+sudo update-ca-certificates
 curl https://www.amazontrust.com/repository/AmazonRootCA1.pem --output /usr/local/share/ca-certificates/amazon.crt
 sudo update-ca-certificates
 
@@ -26,7 +27,9 @@ if ! command -v "docker" &> /dev/null; then
   echo "Installing docker"
   # override pre_reqs variable to fix ca cert issue in docker install script
   export pre_reqs="apt-transport-https curl"
-  wget -qO- https://get.docker.com/ | sh
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sudo get-docker.sh
+  # wget -qO- https://get.docker.com/ | sh
   # Eenable docker access for FIRST_USER_NAME if set,
   # otherwise grant docker access for USER.
   # Using bash parameter expansion: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Parameter-Expansion
