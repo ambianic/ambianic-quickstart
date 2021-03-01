@@ -3,8 +3,8 @@
 # This script is derived from https://get.docker.com
 # It resolves this Amazon CA Cert issue: https://github.com/ambianic/ambianic-rpi-image/runs/2000160870?check_suite_focus=true#step:9:4235 
 
-# set bash flags: e - fail on unset vars, x - verbose, u - fail quick 
-set -exu
+# set bash flags: x - verbose, e - fail quick 
+set -ex
 
 # Docker CE for Linux installation script
 #
