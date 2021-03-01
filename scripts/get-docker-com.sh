@@ -357,11 +357,7 @@ do_install() {
 	# Run setup for each distro accordingly
 	case "$lsb_dist" in
 		ubuntu|debian|raspbian)
-            # original script line below:
-			# pre_reqs="apt-transport-https ca-certificates curl"
-            # Modified line follows:
-            # We do not re-install ca-certificates because it would wipe out the newly added get.docker.com cert
-            pre_reqs="apt-transport-https curl"
+	    		pre_reqs="apt-transport-https ca-certificates curl"
 			if [ "$lsb_dist" = "debian" ]; then
 				# libseccomp2 does not exist for debian jessie main repos for aarch64
 				if [ "$(uname -m)" = "aarch64" ] && [ "$dist_version" = "jessie" ]; then
@@ -379,7 +375,9 @@ do_install() {
 				fi
 				$sh_c 'apt-get update -qq >/dev/null'
 				$sh_c "DEBIAN_FRONTEND=noninteractive apt-get install -y -qq $pre_reqs >/dev/null"
-				$sh_c "curl -fsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | apt-key add -qq - >/dev/null"
+				# add -k to avoid verifying the CA cert of get.docker.com which seems to be problematic as of Feb 2021
+				# See this link for error details: https://github.com/ambianic/ambianic-rpi-image/runs/2008385106?check_suite_focus=true#step:9:4229
+				$sh_c "curl -kfsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | apt-key add -qq - >/dev/null"
 				$sh_c "echo \"$apt_repo\" > /etc/apt/sources.list.d/docker.list"
 				$sh_c 'apt-get update -qq >/dev/null'
 			)
