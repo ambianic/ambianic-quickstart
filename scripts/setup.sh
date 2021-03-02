@@ -36,7 +36,7 @@ then
   if [ ! -f /etc/bash_completion.d/ambianic ]
   then
     sudo ln -s $SCRIPTS_DIR/autocomplete.sh /etc/bash_completion.d/ambianic
-    source /etc/bash_completion.d/ambianic
+    bash /etc/bash_completion.d/ambianic
   fi
 fi
 
