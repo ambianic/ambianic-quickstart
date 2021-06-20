@@ -1,6 +1,6 @@
-# Ambianic Quick Start
+# Ambianic Quick Start CLI
 
-A collection of files and scripts to run ambianic.ai on your Raspberry Pi or Debian-like machine.
+Command Line Interface (CLI) for ambianic edge hosts based on Raspberry Pi or Debian-like OS.
 
 ## Quick install script
 
