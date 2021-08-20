@@ -41,6 +41,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     # with --cleanup watchtower will remove old unused docker images
-    command: --cleanup  --label-enable
+    #  --label-enable is useful in case we want to specify which containers should be monitored and updated
+    command: --cleanup
 
 
